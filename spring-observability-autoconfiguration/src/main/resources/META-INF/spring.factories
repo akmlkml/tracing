@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  uz.b2c.kapitalbank.observability.autoconfiguration.ObservabilityAutoConfiguration
+org.springframework.context.ApplicationListener=\
+  uz.b2c.kapitalbank.observability.autoconfiguration.PropertySourcePreparedListener

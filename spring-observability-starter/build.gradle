@@ -1,0 +1,67 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+	id 'java'
+	id 'maven-publish'
+	id 'org.springframework.boot' version '3.1.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'uz.b2c.kapitalbank.observability'
+version = '0.0.1'
+
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+configurations {
+	configureEach {
+		exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom SpringBootPlugin.BOM_COORDINATES
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'uz.b2c.kapitalbank.observability:spring-observability-autoconfiguration:0.0.1'
+}
+
+tasks.register('sourceJar', Jar) {
+	from sourceSets.main.allSource
+	archiveClassifier.set("sources")
+}
+
+publishing {
+	publications {
+		mavenPublication(MavenPublication) {
+			from components.java
+			artifact sourceJar
+		}
+	}
+	repositories {
+		mavenLocal()
+		maven {
+			name 'nexus'
+			url "https://nexus.paymart.uz/repository/maven-releases/"
+			credentials {
+				username System.getenv("GRADLE_USER")
+				password System.getenv("GRADLE_PASSWORD")
+			}
+		}
+
+	}
+}
+

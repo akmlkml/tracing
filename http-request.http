@@ -1,0 +1,8 @@
+### client
+GET http://localhost:8090/api/client/shake
+
+### middleware
+GET http://localhost:8091/api/middle/shake
+
+### backend
+GET http://localhost:8092/api/backend/shake
