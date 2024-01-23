@@ -3,11 +3,9 @@ package uz.b2c.kapitalbank.observability.autoconfiguration;
 import org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan
-@ConfigurationProperties
 @AutoConfiguration
 @ImportAutoConfiguration(exclude = ZipkinAutoConfiguration.class)
 public class ObservabilityAutoConfiguration {
