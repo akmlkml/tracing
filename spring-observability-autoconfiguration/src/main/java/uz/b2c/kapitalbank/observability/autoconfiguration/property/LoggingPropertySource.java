@@ -1,5 +1,6 @@
 package uz.b2c.kapitalbank.observability.autoconfiguration.property;
 
+import org.apache.logging.log4j.core.appender.mom.kafka.KafkaAppender;
 import org.springframework.core.env.MapPropertySource;
 
 import java.util.Map;
