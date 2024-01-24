@@ -1,6 +1,9 @@
 ### client
 GET http://localhost:8090/api/client/shake
 
+### actuator
+GET http://localhost:8090/actuator
+
 ### middleware
 GET http://localhost:8091/api/middle/shake
 

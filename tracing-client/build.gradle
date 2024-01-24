@@ -16,12 +16,23 @@ repositories {
     mavenLocal()
 }
 
+configurations {
+    configureEach {
+        //exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+        exclude group: 'ch.qos.logback', module: 'logback-core'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation ('org.springframework.boot:spring-boot-starter-web')
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
-    // is required to make it work
-    //implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'uz.b2c.kapitalbank.observability:spring-observability-starter:0.0.1'
+
+    implementation ('uz.b2c.kapitalbank.observability:spring-observability-starter:0.0.1')
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.apache.kafka:kafka-log4j-appender:3.4.1'
+    implementation 'org.apache.kafka:kafka-clients:3.4.1'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

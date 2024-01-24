@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="info" name="spring-boot-kafka-log" packages="uz.autopay.b2.insertia">
+<Configuration status="info" name="spring-boot-log">
     <Appenders>
         <Kafka name="Kafka" topic="errors">
-            <Property name="bootstrap.servers">"${env:KAFKA_BOOTSTRAP_SERVERS}"</Property>
-            <Property name="security.protocol">SASL_PLAINTEXT</Property>
-            <Property name="sasl.mechanism">PLAIN</Property>
-            <Property name="group.id">logger-group</Property>
+<!--            <Property name="bootstrap.servers">"${env:KAFKA_BOOTSTRAP_SERVERS}"</Property>-->
+            <Property name="bootstrap.servers">localhost:9092</Property>
+<!--            <Property name="security.protocol">SASL_PLAINTEXT</Property>-->
+<!--            <Property name="sasl.mechanism">PLAIN</Property>-->
+<!--            <Property name="group.id">logger-group</Property>-->
 <!--            <Property name="sasl.jaas.config">org.apache.kafka.common.security.plain.PlainLoginModule required-->
 <!--                username="${env:KAFKA_USERNAME}" password="${env:KAFKA_PASSWORD}";-->
 <!--            </Property>-->
@@ -13,6 +14,8 @@
             <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true" includeTimeMillis="true">
                 <KeyValuePair key="appName" value="${project.name}"/>
                 <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
+                <KeyValuePair key="traceId" value="$${mdc:traceId:-}" />
+                <KeyValuePair key="spanId" value="$${mdc:spanId:-}" />
             </JSONLayout>
         </Kafka>
 
@@ -21,7 +24,8 @@
         </Async>
 
         <Console name="stdout" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5p [%blue(%t)] [%-7t] %F:%L - %m%n"/>
+<!--            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5p [%blue(%t)] [%-7t] %F:%L - %m%n"/>-->
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %5p [${env:APP_NAME}, ${ctx:traceId}, ${mdc:traceId}, %X{mdc:traceId:-},%X{mdc:spanId:-}] %F:%L - %m%n"/>
         </Console>
 
     </Appenders>

@@ -1,9 +1,7 @@
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
-
 plugins {
 	id 'java'
 	id 'maven-publish'
-	id 'org.springframework.boot' version '3.1.5'
+//	id 'org.springframework.boot' version '3.1.5'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
@@ -22,19 +20,27 @@ repositories {
 
 configurations {
 	configureEach {
-		exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+		//exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+		exclude group: 'ch.qos.logback', module: 'logback-classic'
+		exclude group: 'ch.qos.logback', module: 'logback-core'
 	}
 }
 
-dependencyManagement {
-	imports {
-		mavenBom SpringBootPlugin.BOM_COORDINATES
-	}
-}
+//dependencyManagement {
+//	imports {
+//		mavenBom SpringBootPlugin.BOM_COORDINATES
+//	}
+//}
 
 dependencies {
+	implementation platform('org.springframework.boot:spring-boot-dependencies:3.1.5')
 	implementation 'org.springframework.boot:spring-boot-starter'
+
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+//	implementation 'org.apache.kafka:kafka-log4j-appender:3.4.1'
+//	implementation 'org.apache.kafka:kafka-clients:3.4.1'
+
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'uz.b2c.kapitalbank.observability:spring-observability-autoconfiguration:0.0.1'
 }
