@@ -1,8 +1,13 @@
 logging:
   level:
     root: info
-  pattern:
-    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+    org:
+      apache:
+        commons: off
+
+  logging:
+    appender:
+      Kafka: off
 
 management:
   tracing:

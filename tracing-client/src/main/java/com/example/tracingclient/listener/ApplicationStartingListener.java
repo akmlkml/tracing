@@ -1,7 +1,6 @@
 package com.example.tracingclient.listener;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.core.appender.mom.kafka.KafkaAppender;
 import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.ApplicationListener;
 
