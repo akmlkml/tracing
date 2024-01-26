@@ -4,10 +4,7 @@ logging:
     org:
       apache:
         commons: off
-
-  logging:
-    appender:
-      Kafka: off
+  config: classpath:log4j2-spring.xml
 
 management:
   tracing:

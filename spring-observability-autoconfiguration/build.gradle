@@ -37,8 +37,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
 
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
     implementation 'org.apache.kafka:kafka-log4j-appender:3.4.1'
     implementation 'org.apache.kafka:kafka-clients:3.4.1'
+    implementation 'org.apache.logging.log4j:log4j-layout-template-json:2.22.1'
     implementation "org.apache.logging.log4j:log4j-spring-boot"
 
     // Actuator endpoints allow you to monitor and interact with your application.
