@@ -1,10 +1,18 @@
 logging:
   level:
     root: info
-    org:
-      apache:
-        commons: off
   config: classpath:log4j2-spring.xml
+  appender:
+    kafka:
+      bootstrap:
+        servers: localhost:9092
+      security:
+        protocol: PLAINTEXT # PLAINTEXT, SASL_PLAINTEXT
+      topic: errors
+      username: username
+      password: password
+      group:
+        id: 'logger-group'
 
 management:
   tracing:

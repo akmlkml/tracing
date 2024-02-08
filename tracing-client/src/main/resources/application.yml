@@ -1,7 +1,5 @@
 spring:
   application:
     name: client
-  profiles:
-    active: local
 server:
   port: 8090

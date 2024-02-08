@@ -14,6 +14,14 @@ java {
 repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+        name 'nexus'
+        url "https://nexus.paymart.uz/repository/maven-releases/"
+        credentials {
+            username System.getenv("GRADLE_USER")
+            password System.getenv("GRADLE_PASSWORD")
+        }
+    }
 }
 
 configurations {
@@ -26,7 +34,7 @@ dependencies {
     implementation ('org.springframework.boot:spring-boot-starter-web')
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 
-    implementation ('uz.b2c.kapitalbank.observability:spring-observability-starter:0.0.1')
+    implementation 'uz.b2c.kapitalbank.observability:observability-starter:0.0.1'
 //    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 //    implementation 'org.apache.kafka:kafka-log4j-appender:3.4.1'
 //    implementation 'org.apache.kafka:kafka-clients:3.4.1'

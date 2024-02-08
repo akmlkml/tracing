@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="info" name="spring-boot-log">
     <Properties>
-        <Property name="bootstrap.servers">localhost:9092</Property>
-        <Property name="kafka.topic.logs">errors</Property>
-        <Property name="kafka.username">username</Property>
-        <Property name="kafka.password">password</Property>
-        <Property name="kafka.group.id">logger-group</Property>
+        <Property name="kafka.bootstrap.servers">${spring:logging.appender.kafka.bootstrap.servers}</Property>
+        <Property name="kafka.topic.logs">${spring:logging.appender.kafka.topic}</Property>
+        <Property name="kafka.username">${spring:logging.appender.kafka.username}</Property>
+        <Property name="kafka.password">${spring:logging.appender.kafka.password}</Property>
+        <Property name="kafka.security.protocol">${spring:logging.appender.kafka.security.protocol}</Property>
+        <Property name="kafka.group.id">${spring:logging.appender.kafka.group.id}</Property>
+
         <Property name="application.name">${spring:spring.application.name}</Property>
-<!--        <Property name="application.name">${env:APP_NAME}</Property>-->
-<!--        <Property name="appender.kafka.level">${spring:logging.appender.kafka.level}</Property>-->
         <Property name="console.pattern">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %highlight{${application.name}} %highlight{%-5p} [%X{traceId},%X{spanId}] [%-7t] %F:%L - %m%n</Property>
     </Properties>
 
@@ -27,27 +27,25 @@
     <SpringProfile name="!local">
         <Appenders>
             <Kafka name="Kafka" topic="${kafka.topic.logs}">
-                <Property name="bootstrap.servers">${bootstrap.servers}</Property>
-                <!--            <Property name="security.protocol">SASL_PLAINTEXT</Property>-->
-                <!--            <Property name="sasl.mechanism">PLAIN</Property>-->
-                <!--            <Property name="group.id">${kafka.group.id}</Property>-->
-                <!--            <Property name="sasl.jaas.config">org.apache.kafka.common.security.plain.PlainLoginModule required-->
-                <!--                username="${kafka.username}" password="${kafka.password}";-->
-                <!--            </Property>-->
+                <Property name="bootstrap.servers">${kafka.bootstrap.servers}</Property>
+                <Property name="security.protocol">${kafka.security.protocol}</Property>
+                <Property name="sasl.mechanism">PLAIN</Property>
+                <Property name="group.id">${kafka.group.id}</Property>
+                <Property name="sasl.jaas.config">
+                    org.apache.kafka.common.security.plain.PlainLoginModule required username="${kafka.username}" password="${kafka.password}";
+                </Property>
 
                 <JsonLayout compact="true"
                             eventEol="true"
                             properties="true"
                             includeTimeMillis="true">
-<!--                    <ThreadContextIncludes>requestId,sessionId,loginId,userId,ipAddress,callingHost</ThreadContextIncludes>-->
                     <KeyValuePair key="application" value="${application.name}"/>
                     <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}"/>
                 </JsonLayout>
             </Kafka>
 
-
             <Console name="stdout" target="SYSTEM_OUT">
-                <PatternLayout pattern="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %highlight{${application.name}} %highlight{%-5p} [%X{traceId},%X{spanId}] [%-7t] %F:%L - %m%n"/>
+                <PatternLayout pattern="${console.pattern}"/>
             </Console>
 
             <Async name="Async">
@@ -56,7 +54,7 @@
         </Appenders>
 
         <Loggers>
-            <Root level="INFO">
+            <Root>
                 <AppenderRef ref="Kafka"/>
                 <AppenderRef ref="stdout"/>
             </Root>
@@ -64,6 +62,4 @@
             <Logger name="org.apache.kafka" level="warn" />
         </Loggers>
     </SpringProfile>
-
-
 </Configuration>
