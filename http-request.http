@@ -1,5 +1,7 @@
 ### client
-GET http://localhost:8090/api/client/shake
+GET http://localhost:8090/api/client/shake?a=b
+Content-Type: application/json
+Authorization: Bearer your_access_token_here
 
 ### actuator
 GET http://localhost:8090/actuator
