@@ -17,6 +17,7 @@ public class ClientService {
     public void shakeHand() {
         log.info("Client. Shaking hand");
         log.info("Trace {}", MDC.get("traceId"));
+        log.info("Device-Info {}", MDC.get("X-Device-Info"));
         adapter.shakeHand();
     }
 }

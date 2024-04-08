@@ -2,7 +2,6 @@ package com.example.tracingclient.component;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,11 +12,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.Collections;
-import uz.b2c.kapitalbank.observability.autoconfiguration.ObservabilityAutoConfiguration;
 
 @Slf4j
 @Component
-@ImportAutoConfiguration(classes = ObservabilityAutoConfiguration.class)
 public class HttpClient {
     private final RestTemplate restTemplate;
 
